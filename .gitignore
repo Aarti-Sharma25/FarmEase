@@ -1,0 +1,19 @@
+# Ignore all .env files
+**/.env
+
+# Ignore service account credentials
+**/firebase-service-account.json
+
+# Ignore zipped files
+*.zip
+
+# Node modules
+node_modules/
+
+
+
+
+# Node.js / React / JavaScript
+node_modules/
+build/
+.env

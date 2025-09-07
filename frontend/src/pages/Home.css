@@ -1,0 +1,100 @@
+/* General body styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+/* Home Section */
+.home {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./home_wal.jpeg'); /* Ensure the image path is correct */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image repetition */
+}
+
+/* Optional: Add a blur effect using a pseudo-element */
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Black tint with 50% opacity */
+    filter: blur(8px); /* Increase blur effect */
+    z-index: 1; /* Place it behind the content */
+}
+
+/* Welcome Text */
+.welcome-text {
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 50px;
+    z-index: 10;
+    animation: colorChange 5s ease-in-out infinite, textPulse 3s ease-in-out infinite;
+    background: linear-gradient(45deg, #ff6347, #1e90ff, #32cd32);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Arrow container */
+.arrow-container {
+    position: fixed; /* Fix the arrow in one position */
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+}
+
+/* Arrow styles and animations */
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 80px solid transparent;
+    margin: 10px 0;
+    animation: moveArrow 2s infinite ease-in-out;
+}
+
+.arrow-big {
+    border-top-color: black;
+}
+
+.arrow-medium {
+    border-top-color: rgba(0, 0, 0, 0.7);
+    animation-delay: 0.3s;
+}
+
+.arrow-small {
+    border-top-color: rgba(0, 0, 0, 0.5);
+    animation-delay: 0.6s;
+}
+
+/* Arrow movement animation */
+@keyframes moveArrow {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "admins": {
+      ".read": true,
+      ".write": true,
+      ".indexOn": ["email", "isMain"]
+    },
+    "pendingAdmins": {
+      ".read": true,
+      ".write": true,
+      ".indexOn": ["email"]
+    }
+  }
+}
