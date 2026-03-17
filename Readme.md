@@ -75,11 +75,6 @@ In many regions, expensive farming equipment remains unused during non-seasonal 
 * MongoDB
 * JWT + OTP 
 
-**Others:**
-
-* Socket.IO (for chat)
-
-
 ---
 
 ## 🚀 Getting Started
