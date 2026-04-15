@@ -1,6 +1,6 @@
 // index.js
 import express from "express";
-import dotenv from "dotenv";
+
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import { connectDB } from './db/connectDB.js';
@@ -11,7 +11,8 @@ import { dirname } from 'path';
 import authRoutes from "./routes/auth.route.js";
 import rentalRoutes from "./routes/rental.route.js"; // Updated to rental routes
 
-dotenv.config();
+import dotenv from "dotenv";
+dotenv.config({ path: "./backend/.env" });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
