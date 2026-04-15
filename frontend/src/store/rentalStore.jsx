@@ -9,7 +9,10 @@ export const RentalProvider = ({ children }) => {
   // Fetch rentals from the database
   const fetchRentals = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/rentals');
+      //const res = await fetch('http://localhost:5000/api/rentals');
+      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "https://farmease-rku8.onrender.com";
+      const res = await fetch(`${BASE_URL}/api/rentals`);
+
       if (res.ok) {
         const data = await res.json();
         setRentals(data.rentals || data); // Handle both response formats

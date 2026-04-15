@@ -55,7 +55,8 @@ const RentPage = () => {
     formData.append('rentalManEmail', equipment.rentalManEmail);
 
     try {
-      const res = await fetch('http://localhost:5000/api/rentals', {
+      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "https://farmease-rku8.onrender.com";
+const res = await fetch(`${BASE_URL}/api/rentals`, {
         method: 'POST',
         body: formData,
       });
@@ -93,21 +94,21 @@ const RentPage = () => {
   return (
     <div className="min-h-screen bg-green-50">
       <RentNavbar />
-      <div className="max-w-3xl mx-auto mt-20 p-6">
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-green-200">
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 p-6 text-center">
+      <div className="max-w-3xl p-6 mx-auto mt-20">
+        <div className="overflow-hidden bg-white border border-green-200 shadow-lg rounded-xl">
+          <div className="p-6 text-center bg-gradient-to-r from-green-600 to-emerald-700">
             <h2 className="text-3xl font-bold text-white">List Farm Equipment for Rent</h2>
             <p className="mt-2 text-green-100">Share your equipment with fellow farmers</p>
           </div>
           
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Equipment Information */}
-              <div className="md:col-span-2 border-b pb-4">
-                <h3 className="text-xl font-semibold text-green-800 mb-4">Equipment Details</h3>
+              <div className="pb-4 border-b md:col-span-2">
+                <h3 className="mb-4 text-xl font-semibold text-green-800">Equipment Details</h3>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-medium mb-2" htmlFor="equipmentName">
+                  <label className="block mb-2 font-medium text-gray-700" htmlFor="equipmentName">
                     Equipment Name *
                   </label>
                   <input 
@@ -122,7 +123,7 @@ const RentPage = () => {
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-medium mb-2" htmlFor="description">
+                  <label className="block mb-2 font-medium text-gray-700" htmlFor="description">
                     Description *
                   </label>
                   <textarea
@@ -136,9 +137,9 @@ const RentPage = () => {
                   />
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2" htmlFor="rentalPrice">
+                    <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalPrice">
                       Rental Price (₹) *
                     </label>
                     <div className="relative">
@@ -150,14 +151,14 @@ const RentPage = () => {
                         onChange={handleChange} 
                         required
                         min="0"
-                        className="w-full pl-8 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        className="w-full px-4 py-2 pl-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                         placeholder="Price per period"
                       />
                     </div>
                   </div>
                   
                   <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2" htmlFor="rentalPeriod">
+                    <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalPeriod">
                       Rental Period *
                     </label>
                     <select 
@@ -175,7 +176,7 @@ const RentPage = () => {
                   </div>
                 </div>
                 
-                <div className="mb-4 flex items-center">
+                <div className="flex items-center mb-4">
                   <input
                     id="availability"
                     name="availability"
@@ -184,14 +185,14 @@ const RentPage = () => {
                     onChange={handleChange}
                     className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                   />
-                  <label className="ml-2 block text-gray-700 font-medium" htmlFor="availability">
+                  <label className="block ml-2 font-medium text-gray-700" htmlFor="availability">
                     Currently Available
                   </label>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2" htmlFor="location">
+                    <label className="block mb-2 font-medium text-gray-700" htmlFor="location">
                       Location *
                     </label>
                     <input 
@@ -206,7 +207,7 @@ const RentPage = () => {
                   </div>
                   
                   <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2" htmlFor="contactInfo">
+                    <label className="block mb-2 font-medium text-gray-700" htmlFor="contactInfo">
                       Contact Info *
                     </label>
                     <input 
@@ -223,11 +224,11 @@ const RentPage = () => {
               </div>
               
               {/* Rental Manager Information */}
-              <div className="md:col-span-2 border-b pb-4">
-                <h3 className="text-xl font-semibold text-green-800 mb-4">Rental  Information</h3>
+              <div className="pb-4 border-b md:col-span-2">
+                <h3 className="mb-4 text-xl font-semibold text-green-800">Rental  Information</h3>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-medium mb-2" htmlFor="rentalManName">
+                  <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManName">
                     Full Name *
                   </label>
                   <input 
@@ -241,9 +242,9 @@ const RentPage = () => {
                   />
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2" htmlFor="rentalManPhone">
+                    <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManPhone">
                       Phone Number *
                     </label>
                     <input 
@@ -258,7 +259,7 @@ const RentPage = () => {
                   </div>
                   
                   <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2" htmlFor="rentalManEmail">
+                    <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManEmail">
                       Email Address *
                     </label>
                     <input 
@@ -276,11 +277,11 @@ const RentPage = () => {
               
               {/* Equipment Image */}
               <div className="md:col-span-2">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="image">
+                <label className="block mb-2 font-medium text-gray-700" htmlFor="image">
                   Equipment Image *
                 </label>
                 <div className="flex items-center justify-center w-full">
-                  <label className="flex flex-col w-full h-32 border-2 border-dashed border-gray-300 hover:border-green-400 rounded-lg cursor-pointer bg-gray-50 transition-colors">
+                  <label className="flex flex-col w-full h-32 transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-green-400 bg-gray-50">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -307,11 +308,11 @@ const RentPage = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full md:w-1/2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline shadow-md transition-all duration-300 disabled:opacity-75"
+                className="w-full px-6 py-3 font-bold text-white transition-all duration-300 rounded-lg shadow-md md:w-1/2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 focus:outline-none focus:shadow-outline disabled:opacity-75"
               >
                 {loading ? (
                   <span className="flex items-center justify-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>

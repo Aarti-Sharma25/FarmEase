@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api/auth" : "/api/auth";
-
+//type frontend\src\store\rentalStore.jsxconst API_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api/auth" : "/api/auth";
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api/auth" : "https://farmease-rku8.onrender.com/api/auth";
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create((set) => ({
