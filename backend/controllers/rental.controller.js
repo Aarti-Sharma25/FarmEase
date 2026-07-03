@@ -29,8 +29,11 @@ export const addRental = async (req, res) => {
             rentalManEmail
         } = req.body;
 
-       const image = `${process.env.SERVER_URL}/uploads/${req.file.filename}`;
-
+      
+        let image = "";
+        if (req.file) {
+            image = await uploadOnCloudinary(req.file.buffer);   // ab .path nahi, .buffer
+        }
         const rental = new RentalEquipment({
             equipmentName,
             description,
