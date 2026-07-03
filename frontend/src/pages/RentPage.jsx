@@ -78,7 +78,7 @@ const res = await fetch(`${BASE_URL}/api/rentals`, {
           rentalManPhone: '',
           rentalManEmail: '',
         });
-        navigate('/RentalsPage');
+        navigate('/ProductPage');
       } else {
         const errorData = await res.json();
         alert(`Failed to list equipment: ${errorData.message || 'Unknown error'}`);
