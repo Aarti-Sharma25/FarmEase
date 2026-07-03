@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 
-const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api/auth" : "https://farmease-backend-8sjs.onrender.com";
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-backend-8sjs.onrender.com";
 axios.defaults.withCredentials = true;
 export const useAuthStore = create((set) => ({
     user: null,
