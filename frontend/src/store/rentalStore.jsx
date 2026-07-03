@@ -10,7 +10,7 @@ export const RentalProvider = ({ children }) => {
   const fetchRentals = async () => {
     try {
       //const res = await fetch('http://localhost:5000/api/rentals');
-      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-rku8.onrender.com";
+      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-backend-8sjs.onrender.com";
       const res = await fetch(`${BASE_URL}/api/rentals`);
 
       if (res.ok) {
