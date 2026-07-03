@@ -1,9 +1,11 @@
 // index.js
+import dotenv from "dotenv";
+dotenv.config({ path: "./backend/.env" });
+console.log("SMTP_HOST:", process.env.SMTP_HOST, "PORT:", process.env.SMTP_PORT);
 import express from "express";
-
 import cors from "cors";
 import cookieParser from 'cookie-parser';
-import { connectDB } from './db/connectDB.js';
+import connectDB from './db/connectDB.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -11,8 +13,7 @@ import { dirname } from 'path';
 import authRoutes from "./routes/auth.route.js";
 import rentalRoutes from "./routes/rental.route.js"; // Updated to rental routes
 
-import dotenv from "dotenv";
-dotenv.config({ path: "./backend/.env" });
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
