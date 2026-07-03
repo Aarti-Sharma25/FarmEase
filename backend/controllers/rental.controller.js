@@ -29,7 +29,7 @@ export const addRental = async (req, res) => {
             rentalManEmail
         } = req.body;
 
-        const image = `http://localhost:5000/uploads/${req.file.filename}`;
+       const image = `${process.env.SERVER_URL}/uploads/${req.file.filename}`;
 
         const rental = new RentalEquipment({
             equipmentName,
