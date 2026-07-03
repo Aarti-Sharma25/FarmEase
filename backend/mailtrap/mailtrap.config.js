@@ -20,15 +20,29 @@
 // export const getSender = () => ({
 //   email: process.env.SMTP_USER,
 //   name: "FarmEase",
-// });
-import { Resend } from "resend";
+// // });
+// import { Resend } from "resend";
 
-export function getResendClient() {
-  return new Resend(process.env.RESEND_API_KEY);
+// export function getResendClient() {
+//   return new Resend(process.env.RESEND_API_KEY);
+// }
+
+// export const getSender = () => ({
+//   email: "onboarding@resend.dev",
+//   name: "FarmEase",
+// });
+import * as brevo from '@getbrevo/brevo';
+
+export function getBrevoClient() {
+  const apiInstance = new brevo.TransactionalEmailsApi();
+  apiInstance.setApiKey(
+    brevo.TransactionalEmailsApiApiKeys.apiKey,
+    process.env.BREVO_API_KEY
+  );
+  return apiInstance;
 }
 
 export const getSender = () => ({
-  email: "onboarding@resend.dev",
+  email: "tumhari_verified_email@gmail.com", // Brevo mein verify ki hui email
   name: "FarmEase",
 });
-
