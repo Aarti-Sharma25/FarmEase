@@ -4,7 +4,7 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { addRental, getRentals, deleteRental, uploads } from '../controllers/rental.controller.js';
+import { addRental, getRentals, deleteRental} from '../controllers/rental.controller.js';
 import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
