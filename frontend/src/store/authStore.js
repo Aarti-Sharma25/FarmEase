@@ -15,7 +15,7 @@ export const useAuthStore = create((set) => ({
     signup: async (email, password, name) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(`${API_URL}/signup`, { email, password, name });
+            const response = await axios.post(`${API_URL}/api/auth/signup`, { email, password, name });
             set({ user: response.data.user, isAuthenticated: true, isLoading: false });
             return response.data;
         } catch (error) {
@@ -27,7 +27,7 @@ export const useAuthStore = create((set) => ({
     login: async (email, password) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(`${API_URL}/login`, { email, password });
+            const response = await axios.post(`${API_URL}/api/auth/login`, { email, password });
             set({
                 isAuthenticated: true,
                 user: response.data.user,
@@ -44,7 +44,7 @@ export const useAuthStore = create((set) => ({
     logout: async () => {
         set({ isLoading: true, error: null });
         try {
-            await axios.post(`${API_URL}/logout`);
+            await axios.post(`${API_URL}/api/auth/logout`);
             set({ user: null, isAuthenticated: false, error: null, isLoading: false });
         } catch (error) {
             set({ error: "Error logging out", isLoading: false });
@@ -55,7 +55,7 @@ export const useAuthStore = create((set) => ({
     verifyEmail: async (code) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(`${API_URL}/verify-email`, { code });
+            const response = await axios.post(`${API_URL}/api/auth/verify-email`, { code });
             set({ user: response.data.user, isAuthenticated: true, isLoading: false });
             return response.data;
         } catch (error) {
@@ -67,7 +67,7 @@ export const useAuthStore = create((set) => ({
     checkAuth: async () => {
         set({ isCheckingAuth: true, error: null });
         try {
-            const response = await axios.get(`${API_URL}/check-auth`);
+            const response = await axios.get(`${API_URL}/api/auth/check-auth`);
             set({ user: response.data.user, isAuthenticated: true, isCheckingAuth: false });
         } catch (error) {
             set({ error: null, isCheckingAuth: false, isAuthenticated: false });
@@ -77,7 +77,7 @@ export const useAuthStore = create((set) => ({
     forgotPassword: async (email) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(`${API_URL}/forgot-password`, { email });
+            const response = await axios.post(`${API_URL}/api/auth/forgot-password`, { email });
             set({ message: response.data.message, isLoading: false });
         } catch (error) {
             set({
@@ -91,7 +91,7 @@ export const useAuthStore = create((set) => ({
     resetPassword: async (token, password) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(`${API_URL}/reset-password/${token}`, { password });
+            const response = await axios.post(`${API_URL}/api/auth/reset-password/${token}`, { password });
             set({ message: response.data.message, isLoading: false });
         } catch (error) {
             set({
@@ -105,7 +105,7 @@ export const useAuthStore = create((set) => ({
     getProfile: async () => {
         set({ isLoading: true });
         try {
-            const response = await axios.get(`${API_URL}/profile`);
+            const response = await axios.get(`${API_URL}/api/auth/profile`);
             set({ user: response.data.user, isLoading: false });
             return response.data.user;
         } catch (error) {
@@ -121,7 +121,7 @@ export const useAuthStore = create((set) => ({
         });
 
         try {
-            const response = await axios.put(`${API_URL}/profile`, formData, {
+            const response = await axios.put(`${API_URL}/api/auth/profile`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
