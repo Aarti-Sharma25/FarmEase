@@ -55,7 +55,7 @@ const RentPage = () => {
     formData.append('rentalManEmail', equipment.rentalManEmail);
 
     try {
-      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-rku8.onrender.com";
+      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-backend-8sjs.onrender.com";
 const res = await fetch(`${BASE_URL}/api/rentals`, {
         method: 'POST',
         body: formData,
