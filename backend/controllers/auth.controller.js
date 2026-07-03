@@ -30,7 +30,11 @@ export const signup = async (req, res) => {
 
         await user.save();
         generateTokenAndSetCookie(res, user._id);
-        await sendVerificationEmail(user.email, verificationToken);
+         try {
+            await sendVerificationEmail(user.email, verificationToken);
+        } catch (emailError) {
+            console.log("Verification email failed to send:", emailError.message);
+        }
 
         res.status(201).json({
             success: true,
