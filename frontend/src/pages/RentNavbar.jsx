@@ -47,7 +47,7 @@ const RentNavbar = () => {
   };
 
   const handleRentalsPageClick = () => {
-    navigate('/RentalsPage');
+   navigate('/ProductPage');
   };
 
   const handleProfileClick = () => {
