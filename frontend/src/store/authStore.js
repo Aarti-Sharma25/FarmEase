@@ -4,7 +4,6 @@ import axios from "axios";
 //type frontend\src\store\rentalStore.jsxconst API_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api/auth" : "/api/auth";
 const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api/auth" : "https://farmease-backend-8sjs.onrender.com";
 axios.defaults.withCredentials = true;
-
 export const useAuthStore = create((set) => ({
     user: null,
     isAuthenticated: false,
