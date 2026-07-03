@@ -2,18 +2,19 @@
 import { RentalEquipment } from '../models/rental.model.js';
 import multer from 'multer';
 import path from 'path';
+import uploadOnCloudinary from '../utils/cloudinary.js';
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
-});
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'uploads');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, `${Date.now()}-${file.originalname}`);
+//     },
+// });
 
-export const uploads = multer({ storage });
-
+// export const uploads = multer({ storage });
+const upload = multer({ storage: multer.memoryStorage() });
 export const addRental = async (req, res) => {
     try {
         const { 
