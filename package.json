@@ -11,6 +11,7 @@
   "type": "module",
   "license": "ISC",
   "dependencies": {
+    "@getbrevo/brevo": "^6.0.2",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.10.0",
     "cookie-parser": "^1.4.7",
@@ -23,7 +24,8 @@
     "mongoose": "^8.7.1",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.15",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "resend": "^6.16.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
