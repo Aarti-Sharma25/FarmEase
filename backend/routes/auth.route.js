@@ -27,16 +27,16 @@ import { verifyToken } from "../middleware/verifyToken.js";
 const router = express.Router();
 
 // Multer configuration for profile image uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads/profile-pictures');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
-const upload = multer({ storage });
-
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, './uploads/profile-pictures');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, `${Date.now()}-${file.originalname}`);
+//     }
+// });
+// const upload = multer({ storage });
+const upload = multer({ storage: multer.memoryStorage() });
 // Profile routes
 // Profile routes
 router.get("/profile", verifyToken, getProfile);
