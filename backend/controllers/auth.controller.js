@@ -174,8 +174,7 @@ export const checkAuth = async (req, res) => {
         res.status(400).json({ success: false, message: error.message });
     }
 };
-// top mein ye import add karo (agar already nahi hai)
-import uploadOnCloudinary from '../utils/cloudinary.js';
+
 
 
 export const updateProfile = async (req, res) => {
