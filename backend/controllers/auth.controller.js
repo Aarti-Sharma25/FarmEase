@@ -6,7 +6,7 @@ import { sendVerificationEmail } from '../mailtrap/emails.js';
 import { sendPasswordResetEmail } from '../mailtrap/emails.js';
 import { sendWelcomeEmail } from '../mailtrap/emails.js';
 import { sendResetSuccessEmail } from "../mailtrap/emails.js";
-
+import uploadOnCloudinary from '../utils/cloudinary.js';
 export const signup = async (req, res) => {
     const { email, password, name } = req.body;
 
@@ -174,27 +174,30 @@ export const checkAuth = async (req, res) => {
         res.status(400).json({ success: false, message: error.message });
     }
 };
+// top mein ye import add karo (agar already nahi hai)
+import uploadOnCloudinary from '../utils/cloudinary.js';
 
-// ✅ Profile update controller
+
 export const updateProfile = async (req, res) => {
     const userId = req.userId;
     const { name, ...additionalFields } = req.body;
-
     try {
         const user = await User.findById(userId);
         if (!user) {
             return res.status(400).json({ success: false, message: 'User not found' });
         }
-
         if (name) user.name = name;
-        if (req.file) user.profileImage = `/uploads/profile-pictures/${req.file.filename}`;
+
+        // ⬇️ yehi line change hui hai — purani wali neeche comment mein rakh di hai
+        if (req.file) {
+            user.profileImage = await uploadOnCloudinary(req.file.buffer);
+        }
+        // purana tha: if (req.file) user.profileImage = `/uploads/profile-pictures/${req.file.filename}`;
 
         for (const [key, value] of Object.entries(additionalFields)) {
             user.additionalFields.set(key, value);
         }
-
         await user.save();
-
         res.status(200).json({
             success: true,
             message: 'Profile updated successfully',
@@ -208,7 +211,7 @@ export const updateProfile = async (req, res) => {
     }
 };
 
-// ✅ Get profile
+
 export const getProfile = async (req, res) => {
     try {
         const user = await User.findById(req.userId).select('-password');
@@ -220,3 +223,5 @@ export const getProfile = async (req, res) => {
         res.status(400).json({ success: false, message: error.message });
     }
 };
+
+
