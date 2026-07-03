@@ -64,8 +64,12 @@ export const verifyEmail = async (req, res) => {
         user.verificationTokenExpiresAt = undefined;
         await user.save();
 
-        await sendWelcomeEmail(user.email, user.name);
-
+       try{
+           await sendWelcomeEmail(user.email, user.name);
+       }
+        catch(emailError){
+            console.log("Verification email token:", emailError.message);
+        }
         res.status(200).json({
             success: true,
             message: "Email verified successfully",
@@ -157,8 +161,13 @@ export const resetPassword = async (req, res) => {
         user.resetTokenExpiresAt = undefined;
 
         await user.save();
-        await sendResetSuccessEmail(user.email);
-
+        try{
+             await sendResetSuccessEmail(user.email);
+        }
+        catch(emailError){
+            console.log("Reset email failed to send:", emailError.message);
+        }
+       
         res.status(200).json({ success: true, message: "Password reset successfully" });
     } catch (error) {
         console.log("Error in resetPassword", error);
