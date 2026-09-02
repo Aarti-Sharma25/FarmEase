@@ -1,3 +1,50 @@
+// // index.js
+// import dotenv from "dotenv";
+// dotenv.config({ path: "./backend/.env" });
+// console.log("SMTP_HOST:", process.env.SMTP_HOST, "PORT:", process.env.SMTP_PORT);
+// import express from "express";
+// import cors from "cors";
+// import cookieParser from 'cookie-parser';
+// import connectDB from './db/connectDB.js';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
+
+// import authRoutes from "./routes/auth.route.js";
+// import rentalRoutes from "./routes/rental.route.js"; // Updated to rental routes
+
+
+
+// const app = express();
+// const PORT = process.env.PORT || 5000;
+
+// // Get the current directory of this file
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+
+// // Middleware
+// app.use(cors({
+//     origin: process.env.CLIENT_URL,
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true
+// }));
+
+// app.use(express.json());
+// app.use(cookieParser());
+
+// // Serve static files
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// app.use("/api/auth", authRoutes);
+// app.use("/api/rentals", rentalRoutes); // Updated endpoint
+
+// // Connect to the database and start the server
+// app.listen(PORT, () => {
+//     connectDB();
+//     console.log("FarmEase server is running on port", PORT);
+// });
+
 // index.js
 import dotenv from "dotenv";
 dotenv.config({ path: "./backend/.env" });
@@ -12,6 +59,7 @@ import { dirname } from 'path';
 
 import authRoutes from "./routes/auth.route.js";
 import rentalRoutes from "./routes/rental.route.js"; // Updated to rental routes
+import aiRoutes from "./routes/ai.route.js";
 
 
 
@@ -38,6 +86,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/rentals", rentalRoutes); // Updated endpoint
+app.use("/api/ai", aiRoutes);
 
 // Connect to the database and start the server
 app.listen(PORT, () => {

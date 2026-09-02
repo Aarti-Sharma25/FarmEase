@@ -20,7 +20,7 @@ import ViewProfile from "./pages/ViewProfilePage";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
-import { RentalProvider } from "./store/rentalStore";
+//import { RentalProvider } from "./store/rentalStore";
 import RentCheckoutPage from "./pages/RentCheckoutPage";
 
 const ProtectedRoute = ({ children }) => {
@@ -60,7 +60,7 @@ function App() {
       <FloatingShape color="bg-gray-200" size="w-48 h-48" top="70%" left="80%" delay={5} />
       <FloatingShape color="bg-gray-100" size="w-32 h-32" top="40%" left="-10%" delay={2} />
 
-      <RentalProvider>
+      <>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
@@ -147,7 +147,7 @@ function App() {
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </RentalProvider>
+      </>
       <Toaster />
     </div>
   );

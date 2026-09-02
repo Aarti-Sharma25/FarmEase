@@ -47,6 +47,11 @@ const rentalSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    embedding: {
+        type: [Number],
+        default: [],
+        select: false, // normal listing queries mein yeh bada array wapas nahi aayega
+    },
 }, { timestamps: true });
 
 export const RentalEquipment = mongoose.model('RentalEquipment', rentalSchema);

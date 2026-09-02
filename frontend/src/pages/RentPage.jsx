@@ -1,11 +1,671 @@
+// // // src/pages/RentPage.jsx
+// // import React, { useState } from 'react';
+// // import { useNavigate } from 'react-router-dom';
+// // import { useRentalStore } from '../store/rentalStore.jsx'; 
+// // import RentNavbar from './RentNavbar'; 
+
+// // const RentPage = () => {
+// //   const { fetchRentals } = useRentalStore();
+// //   const [equipment, setEquipment] = useState({
+// //     equipmentName: '',
+// //     description: '',
+// //     rentalPrice: '',
+// //     rentalPeriod: 'hour',
+// //     availability: true,
+// //     location: '',
+// //     contactInfo: '',
+// //     image: null,
+// //     rentalManName: '',      
+// //     rentalManPhone: '',     
+// //     rentalManEmail: '',     
+// //   });
+
+// //   const [loading, setLoading] = useState(false);
+// //   const navigate = useNavigate();
+
+// //   const handleChange = (e) => {
+// //     const { name, value, files, type, checked } = e.target;
+// //     setEquipment({ 
+// //       ...equipment, 
+// //       [name]: type === 'checkbox' ? checked : (files ? files[0] : value)
+// //     });
+// //   };
+
+// //   const handleSubmit = async (e) => {
+// //     e.preventDefault();
+
+// //     if (equipment.rentalPrice <= 0) {
+// //       alert('Rental price must be greater than zero.');
+// //       return;
+// //     }
+
+// //     setLoading(true);
+
+// //     const formData = new FormData();
+// //     formData.append('equipmentName', equipment.equipmentName);
+// //     formData.append('description', equipment.description);
+// //     formData.append('rentalPrice', equipment.rentalPrice);
+// //     formData.append('rentalPeriod', equipment.rentalPeriod);
+// //     formData.append('availability', equipment.availability);
+// //     formData.append('location', equipment.location);
+// //     formData.append('contactInfo', equipment.contactInfo);
+// //     formData.append('image', equipment.image);
+// //     formData.append('rentalManName', equipment.rentalManName);
+// //     formData.append('rentalManPhone', equipment.rentalManPhone);
+// //     formData.append('rentalManEmail', equipment.rentalManEmail);
+
+// //     try {
+// //       const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-backend-8sjs.onrender.com";
+// // const res = await fetch(`${BASE_URL}/api/rentals`, {
+// //         method: 'POST',
+// //         body: formData,
+// //       });
+
+// //       if (res.ok) {
+// //         const data = await res.json();
+// //         alert('Equipment listed for rent successfully!');
+// //         fetchRentals();
+// //         setEquipment({ 
+// //           equipmentName: '', 
+// //           description: '', 
+// //           rentalPrice: '', 
+// //           rentalPeriod: 'hour',
+// //           availability: true,
+// //           location: '',
+// //           contactInfo: '',
+// //           image: null,
+// //           rentalManName: '',      
+// //           rentalManPhone: '',
+// //           rentalManEmail: '',
+// //         });
+// //         navigate('/ProductPage');
+// //       } else {
+// //         const errorData = await res.json();
+// //         alert(`Failed to list equipment: ${errorData.message || 'Unknown error'}`);
+// //       }
+// //     } catch (error) {
+// //       console.error('Error:', error);
+// //       alert('An error occurred while listing the equipment.');
+// //     } finally {
+// //       setLoading(false);
+// //     }
+// //   };
+
+// //   return (
+// //     <div className="min-h-screen bg-green-50">
+// //       <RentNavbar />
+// //       <div className="max-w-3xl p-6 mx-auto mt-20">
+// //         <div className="overflow-hidden bg-white border border-green-200 shadow-lg rounded-xl">
+// //           <div className="p-6 text-center bg-gradient-to-r from-green-600 to-emerald-700">
+// //             <h2 className="text-3xl font-bold text-white">List Farm Equipment for Rent</h2>
+// //             <p className="mt-2 text-green-100">Share your equipment with fellow farmers</p>
+// //           </div>
+          
+// //           <form onSubmit={handleSubmit} className="p-6 space-y-6">
+// //             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+// //               {/* Equipment Information */}
+// //               <div className="pb-4 border-b md:col-span-2">
+// //                 <h3 className="mb-4 text-xl font-semibold text-green-800">Equipment Details</h3>
+                
+// //                 <div className="mb-4">
+// //                   <label className="block mb-2 font-medium text-gray-700" htmlFor="equipmentName">
+// //                     Equipment Name *
+// //                   </label>
+// //                   <input 
+// //                     type="text" 
+// //                     name="equipmentName" 
+// //                     value={equipment.equipmentName} 
+// //                     onChange={handleChange} 
+// //                     required
+// //                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                     placeholder="Tractor, Harvester, etc."
+// //                   />
+// //                 </div>
+                
+// //                 <div className="mb-4">
+// //                   <label className="block mb-2 font-medium text-gray-700" htmlFor="description">
+// //                     Description *
+// //                   </label>
+// //                   <textarea
+// //                     name="description" 
+// //                     value={equipment.description} 
+// //                     onChange={handleChange} 
+// //                     required
+// //                     rows="3"
+// //                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                     placeholder="Describe features, condition, and specifications"
+// //                   />
+// //                 </div>
+                
+// //                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+// //                   <div className="mb-4">
+// //                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalPrice">
+// //                       Rental Price (₹) *
+// //                     </label>
+// //                     <div className="relative">
+// //                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₹</span>
+// //                       <input 
+// //                         type="number" 
+// //                         name="rentalPrice" 
+// //                         value={equipment.rentalPrice} 
+// //                         onChange={handleChange} 
+// //                         required
+// //                         min="0"
+// //                         className="w-full px-4 py-2 pl-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                         placeholder="Price per period"
+// //                       />
+// //                     </div>
+// //                   </div>
+                  
+// //                   <div className="mb-4">
+// //                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalPeriod">
+// //                       Rental Period *
+// //                     </label>
+// //                     <select 
+// //                       name="rentalPeriod" 
+// //                       value={equipment.rentalPeriod} 
+// //                       onChange={handleChange} 
+// //                       required
+// //                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                     >
+// //                       <option value="hour">Per Hour</option>
+// //                       <option value="day">Per Day</option>
+// //                       <option value="week">Per Week</option>
+// //                       <option value="month">Per Month</option>
+// //                     </select>
+// //                   </div>
+// //                 </div>
+                
+// //                 <div className="flex items-center mb-4">
+// //                   <input
+// //                     id="availability"
+// //                     name="availability"
+// //                     type="checkbox"
+// //                     checked={equipment.availability}
+// //                     onChange={handleChange}
+// //                     className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+// //                   />
+// //                   <label className="block ml-2 font-medium text-gray-700" htmlFor="availability">
+// //                     Currently Available
+// //                   </label>
+// //                 </div>
+                
+// //                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+// //                   <div className="mb-4">
+// //                     <label className="block mb-2 font-medium text-gray-700" htmlFor="location">
+// //                       Location *
+// //                     </label>
+// //                     <input 
+// //                       type="text" 
+// //                       name="location" 
+// //                       value={equipment.location} 
+// //                       onChange={handleChange} 
+// //                       required
+// //                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                       placeholder="Where is the equipment located?"
+// //                     />
+// //                   </div>
+                  
+// //                   <div className="mb-4">
+// //                     <label className="block mb-2 font-medium text-gray-700" htmlFor="contactInfo">
+// //                       Contact Info *
+// //                     </label>
+// //                     <input 
+// //                       type="text" 
+// //                       name="contactInfo" 
+// //                       value={equipment.contactInfo} 
+// //                       onChange={handleChange} 
+// //                       required
+// //                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                       placeholder="Phone number for inquiries"
+// //                     />
+// //                   </div>
+// //                 </div>
+// //               </div>
+              
+// //               {/* Rental Manager Information */}
+// //               <div className="pb-4 border-b md:col-span-2">
+// //                 <h3 className="mb-4 text-xl font-semibold text-green-800">Rental  Information</h3>
+                
+// //                 <div className="mb-4">
+// //                   <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManName">
+// //                     Full Name *
+// //                   </label>
+// //                   <input 
+// //                     type="text" 
+// //                     name="rentalManName" 
+// //                     value={equipment.rentalManName} 
+// //                     onChange={handleChange} 
+// //                     required
+// //                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                     placeholder="Your full name"
+// //                   />
+// //                 </div>
+                
+// //                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+// //                   <div className="mb-4">
+// //                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManPhone">
+// //                       Phone Number *
+// //                     </label>
+// //                     <input 
+// //                       type="text" 
+// //                       name="rentalManPhone" 
+// //                       value={equipment.rentalManPhone} 
+// //                       onChange={handleChange} 
+// //                       required
+// //                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                       placeholder="Your contact number"
+// //                     />
+// //                   </div>
+                  
+// //                   <div className="mb-4">
+// //                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManEmail">
+// //                       Email Address *
+// //                     </label>
+// //                     <input 
+// //                       type="email" 
+// //                       name="rentalManEmail" 
+// //                       value={equipment.rentalManEmail} 
+// //                       onChange={handleChange} 
+// //                       required
+// //                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+// //                       placeholder="Your email address"
+// //                     />
+// //                   </div>
+// //                 </div>
+// //               </div>
+              
+// //               {/* Equipment Image */}
+// //               <div className="md:col-span-2">
+// //                 <label className="block mb-2 font-medium text-gray-700" htmlFor="image">
+// //                   Equipment Image *
+// //                 </label>
+// //                 <div className="flex items-center justify-center w-full">
+// //                   <label className="flex flex-col w-full h-32 transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-green-400 bg-gray-50">
+// //                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
+// //                       <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+// //                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+// //                       </svg>
+// //                       <p className="py-1 text-sm text-gray-600">
+// //                         {equipment.image ? equipment.image.name : 'Upload equipment photo'}
+// //                       </p>
+// //                       <p className="text-xs text-gray-500">PNG, JPG, JPEG (Max 10MB)</p>
+// //                     </div>
+// //                     <input 
+// //                       type="file" 
+// //                       name="image" 
+// //                       onChange={handleChange} 
+// //                       required
+// //                       className="hidden"
+// //                       accept="image/*"
+// //                     />
+// //                   </label>
+// //                 </div>
+// //               </div>
+// //             </div>
+            
+// //             <div className="flex justify-center mt-8">
+// //               <button 
+// //                 type="submit" 
+// //                 disabled={loading}
+// //                 className="w-full px-6 py-3 font-bold text-white transition-all duration-300 rounded-lg shadow-md md:w-1/2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 focus:outline-none focus:shadow-outline disabled:opacity-75"
+// //               >
+// //                 {loading ? (
+// //                   <span className="flex items-center justify-center">
+// //                     <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+// //                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+// //                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+// //                     </svg>
+// //                     Processing...
+// //                   </span>
+// //                 ) : 'List Equipment for Rent'}
+// //               </button>
+// //             </div>
+// //           </form>
+// //         </div>
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+// // export default RentPage;
+
+// // src/pages/RentPage.jsx
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+// import { addRental } from '../store/rentalSlice';
+// import RentNavbar from './RentNavbar'; 
+
+// const RentPage = () => {
+//   const dispatch = useDispatch();
+//   const [equipment, setEquipment] = useState({
+//     equipmentName: '',
+//     description: '',
+//     rentalPrice: '',
+//     rentalPeriod: 'hour',
+//     availability: true,
+//     location: '',
+//     contactInfo: '',
+//     image: null,
+//     rentalManName: '',      
+//     rentalManPhone: '',     
+//     rentalManEmail: '',     
+//   });
+
+//   const [loading, setLoading] = useState(false);
+//   const navigate = useNavigate();
+
+//   const handleChange = (e) => {
+//     const { name, value, files, type, checked } = e.target;
+//     setEquipment({ 
+//       ...equipment, 
+//       [name]: type === 'checkbox' ? checked : (files ? files[0] : value)
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (equipment.rentalPrice <= 0) {
+//       alert('Rental price must be greater than zero.');
+//       return;
+//     }
+
+//     setLoading(true);
+
+//     const formData = new FormData();
+//     formData.append('equipmentName', equipment.equipmentName);
+//     formData.append('description', equipment.description);
+//     formData.append('rentalPrice', equipment.rentalPrice);
+//     formData.append('rentalPeriod', equipment.rentalPeriod);
+//     formData.append('availability', equipment.availability);
+//     formData.append('location', equipment.location);
+//     formData.append('contactInfo', equipment.contactInfo);
+//     formData.append('image', equipment.image);
+//     formData.append('rentalManName', equipment.rentalManName);
+//     formData.append('rentalManPhone', equipment.rentalManPhone);
+//     formData.append('rentalManEmail', equipment.rentalManEmail);
+
+//     try {
+//       // dispatch ek promise return karta hai jo thunk ke fulfilled/rejected action se resolve hoti hai
+//       const resultAction = await dispatch(addRental(formData));
+
+//       if (addRental.fulfilled.match(resultAction)) {
+//         alert('Equipment listed for rent successfully!');
+//         setEquipment({ 
+//           equipmentName: '', 
+//           description: '', 
+//           rentalPrice: '', 
+//           rentalPeriod: 'hour',
+//           availability: true,
+//           location: '',
+//           contactInfo: '',
+//           image: null,
+//           rentalManName: '',      
+//           rentalManPhone: '',
+//           rentalManEmail: '',
+//         });
+//         navigate('/ProductPage');
+//       } else {
+//         // rejectWithValue se aaya error message resultAction.payload mein milta hai
+//         alert(`Failed to list equipment: ${resultAction.payload || 'Unknown error'}`);
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//       alert('An error occurred while listing the equipment.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-green-50">
+//       <RentNavbar />
+//       <div className="max-w-3xl p-6 mx-auto mt-20">
+//         <div className="overflow-hidden bg-white border border-green-200 shadow-lg rounded-xl">
+//           <div className="p-6 text-center bg-gradient-to-r from-green-600 to-emerald-700">
+//             <h2 className="text-3xl font-bold text-white">List Farm Equipment for Rent</h2>
+//             <p className="mt-2 text-green-100">Share your equipment with fellow farmers</p>
+//           </div>
+          
+//           <form onSubmit={handleSubmit} className="p-6 space-y-6">
+//             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+//               {/* Equipment Information */}
+//               <div className="pb-4 border-b md:col-span-2">
+//                 <h3 className="mb-4 text-xl font-semibold text-green-800">Equipment Details</h3>
+                
+//                 <div className="mb-4">
+//                   <label className="block mb-2 font-medium text-gray-700" htmlFor="equipmentName">
+//                     Equipment Name *
+//                   </label>
+//                   <input 
+//                     type="text" 
+//                     name="equipmentName" 
+//                     value={equipment.equipmentName} 
+//                     onChange={handleChange} 
+//                     required
+//                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                     placeholder="Tractor, Harvester, etc."
+//                   />
+//                 </div>
+                
+//                 <div className="mb-4">
+//                   <label className="block mb-2 font-medium text-gray-700" htmlFor="description">
+//                     Description *
+//                   </label>
+//                   <textarea
+//                     name="description" 
+//                     value={equipment.description} 
+//                     onChange={handleChange} 
+//                     required
+//                     rows="3"
+//                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                     placeholder="Describe features, condition, and specifications"
+//                   />
+//                 </div>
+                
+//                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+//                   <div className="mb-4">
+//                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalPrice">
+//                       Rental Price (₹) *
+//                     </label>
+//                     <div className="relative">
+//                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₹</span>
+//                       <input 
+//                         type="number" 
+//                         name="rentalPrice" 
+//                         value={equipment.rentalPrice} 
+//                         onChange={handleChange} 
+//                         required
+//                         min="0"
+//                         className="w-full px-4 py-2 pl-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                         placeholder="Price per period"
+//                       />
+//                     </div>
+//                   </div>
+                  
+//                   <div className="mb-4">
+//                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalPeriod">
+//                       Rental Period *
+//                     </label>
+//                     <select 
+//                       name="rentalPeriod" 
+//                       value={equipment.rentalPeriod} 
+//                       onChange={handleChange} 
+//                       required
+//                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                     >
+//                       <option value="hour">Per Hour</option>
+//                       <option value="day">Per Day</option>
+//                       <option value="week">Per Week</option>
+//                       <option value="month">Per Month</option>
+//                     </select>
+//                   </div>
+//                 </div>
+                
+//                 <div className="flex items-center mb-4">
+//                   <input
+//                     id="availability"
+//                     name="availability"
+//                     type="checkbox"
+//                     checked={equipment.availability}
+//                     onChange={handleChange}
+//                     className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+//                   />
+//                   <label className="block ml-2 font-medium text-gray-700" htmlFor="availability">
+//                     Currently Available
+//                   </label>
+//                 </div>
+                
+//                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+//                   <div className="mb-4">
+//                     <label className="block mb-2 font-medium text-gray-700" htmlFor="location">
+//                       Location *
+//                     </label>
+//                     <input 
+//                       type="text" 
+//                       name="location" 
+//                       value={equipment.location} 
+//                       onChange={handleChange} 
+//                       required
+//                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                       placeholder="Where is the equipment located?"
+//                     />
+//                   </div>
+                  
+//                   <div className="mb-4">
+//                     <label className="block mb-2 font-medium text-gray-700" htmlFor="contactInfo">
+//                       Contact Info *
+//                     </label>
+//                     <input 
+//                       type="text" 
+//                       name="contactInfo" 
+//                       value={equipment.contactInfo} 
+//                       onChange={handleChange} 
+//                       required
+//                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                       placeholder="Phone number for inquiries"
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+              
+//               {/* Rental Manager Information */}
+//               <div className="pb-4 border-b md:col-span-2">
+//                 <h3 className="mb-4 text-xl font-semibold text-green-800">Rental  Information</h3>
+                
+//                 <div className="mb-4">
+//                   <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManName">
+//                     Full Name *
+//                   </label>
+//                   <input 
+//                     type="text" 
+//                     name="rentalManName" 
+//                     value={equipment.rentalManName} 
+//                     onChange={handleChange} 
+//                     required
+//                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                     placeholder="Your full name"
+//                   />
+//                 </div>
+                
+//                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+//                   <div className="mb-4">
+//                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManPhone">
+//                       Phone Number *
+//                     </label>
+//                     <input 
+//                       type="text" 
+//                       name="rentalManPhone" 
+//                       value={equipment.rentalManPhone} 
+//                       onChange={handleChange} 
+//                       required
+//                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                       placeholder="Your contact number"
+//                     />
+//                   </div>
+                  
+//                   <div className="mb-4">
+//                     <label className="block mb-2 font-medium text-gray-700" htmlFor="rentalManEmail">
+//                       Email Address *
+//                     </label>
+//                     <input 
+//                       type="email" 
+//                       name="rentalManEmail" 
+//                       value={equipment.rentalManEmail} 
+//                       onChange={handleChange} 
+//                       required
+//                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+//                       placeholder="Your email address"
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+              
+//               {/* Equipment Image */}
+//               <div className="md:col-span-2">
+//                 <label className="block mb-2 font-medium text-gray-700" htmlFor="image">
+//                   Equipment Image *
+//                 </label>
+//                 <div className="flex items-center justify-center w-full">
+//                   <label className="flex flex-col w-full h-32 transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-green-400 bg-gray-50">
+//                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
+//                       <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+//                       </svg>
+//                       <p className="py-1 text-sm text-gray-600">
+//                         {equipment.image ? equipment.image.name : 'Upload equipment photo'}
+//                       </p>
+//                       <p className="text-xs text-gray-500">PNG, JPG, JPEG (Max 10MB)</p>
+//                     </div>
+//                     <input 
+//                       type="file" 
+//                       name="image" 
+//                       onChange={handleChange} 
+//                       required
+//                       className="hidden"
+//                       accept="image/*"
+//                     />
+//                   </label>
+//                 </div>
+//               </div>
+//             </div>
+            
+//             <div className="flex justify-center mt-8">
+//               <button 
+//                 type="submit" 
+//                 disabled={loading}
+//                 className="w-full px-6 py-3 font-bold text-white transition-all duration-300 rounded-lg shadow-md md:w-1/2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 focus:outline-none focus:shadow-outline disabled:opacity-75"
+//               >
+//                 {loading ? (
+//                   <span className="flex items-center justify-center">
+//                     <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+//                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+//                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+//                     </svg>
+//                     Processing...
+//                   </span>
+//                 ) : 'List Equipment for Rent'}
+//               </button>
+//             </div>
+//           </form>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default RentPage;
 // src/pages/RentPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRentalStore } from '../store/rentalStore.jsx'; 
+import { useDispatch } from 'react-redux';
+import { addRental } from '../store/rentalSlice';
 import RentNavbar from './RentNavbar'; 
 
 const RentPage = () => {
-  const { fetchRentals } = useRentalStore();
+  const dispatch = useDispatch();
   const [equipment, setEquipment] = useState({
     equipmentName: '',
     description: '',
@@ -21,6 +681,8 @@ const RentPage = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [keywords, setKeywords] = useState('');
+  const [generating, setGenerating] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,6 +691,33 @@ const RentPage = () => {
       ...equipment, 
       [name]: type === 'checkbox' ? checked : (files ? files[0] : value)
     });
+  };
+
+  const handleGenerateDescription = async () => {
+    if (!equipment.equipmentName.trim()) {
+      alert('Pehle Equipment Name bhar do, phir AI se description generate karo.');
+      return;
+    }
+    setGenerating(true);
+    try {
+      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-backend-8sjs.onrender.com";
+      const res = await fetch(`${BASE_URL}/api/ai/generate-description`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ equipmentName: equipment.equipmentName, keywords }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setEquipment((prev) => ({ ...prev, description: data.description }));
+      } else {
+        alert(data.message || 'Failed to generate description');
+      }
+    } catch (error) {
+      console.error('Error generating description:', error);
+      alert('AI se description generate karte waqt error aaya.');
+    } finally {
+      setGenerating(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -55,16 +744,11 @@ const RentPage = () => {
     formData.append('rentalManEmail', equipment.rentalManEmail);
 
     try {
-      const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://farmease-backend-8sjs.onrender.com";
-const res = await fetch(`${BASE_URL}/api/rentals`, {
-        method: 'POST',
-        body: formData,
-      });
+      // dispatch ek promise return karta hai jo thunk ke fulfilled/rejected action se resolve hoti hai
+      const resultAction = await dispatch(addRental(formData));
 
-      if (res.ok) {
-        const data = await res.json();
+      if (addRental.fulfilled.match(resultAction)) {
         alert('Equipment listed for rent successfully!');
-        fetchRentals();
         setEquipment({ 
           equipmentName: '', 
           description: '', 
@@ -80,8 +764,8 @@ const res = await fetch(`${BASE_URL}/api/rentals`, {
         });
         navigate('/ProductPage');
       } else {
-        const errorData = await res.json();
-        alert(`Failed to list equipment: ${errorData.message || 'Unknown error'}`);
+        // rejectWithValue se aaya error message resultAction.payload mein milta hai
+        alert(`Failed to list equipment: ${resultAction.payload || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -126,6 +810,23 @@ const res = await fetch(`${BASE_URL}/api/rentals`, {
                   <label className="block mb-2 font-medium text-gray-700" htmlFor="description">
                     Description *
                   </label>
+                  <div className="flex flex-col gap-2 mb-2 sm:flex-row">
+                    <input
+                      type="text"
+                      value={keywords}
+                      onChange={(e) => setKeywords(e.target.value)}
+                      placeholder="Keywords (e.g. 45 HP, diesel, well maintained)"
+                      className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleGenerateDescription}
+                      disabled={generating}
+                      className="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 whitespace-nowrap"
+                    >
+                      {generating ? 'Generating...' : '✨ Generate with AI'}
+                    </button>
+                  </div>
                   <textarea
                     name="description" 
                     value={equipment.description} 

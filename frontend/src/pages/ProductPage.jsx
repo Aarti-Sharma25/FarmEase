@@ -1,11 +1,31 @@
+// import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { useRentalStore } from '../store/rentalStore';
+// import EquipmentPageNavbar from './EquipmentPageNavbar';
+// import { FaHeart, FaHeartBroken, FaTractor, FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
+
+// const BrowseEquipmentPage = () => {
+//   const { rentals = [] } = useRentalStore();
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRentalStore } from '../store/rentalStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRentals } from '../store/rentalSlice';
 import EquipmentPageNavbar from './EquipmentPageNavbar';
 import { FaHeart, FaHeartBroken, FaTractor, FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
 
 const BrowseEquipmentPage = () => {
-  const { rentals = [] } = useRentalStore();
+  const dispatch = useDispatch();
+  const rentals = useSelector((state) => state.rentals.items);
+  const status = useSelector((state) => state.rentals.status);
+
+  // Context wale version mein fetch RentalProvider ke andar khud ho jaata tha.
+  // Redux mein har component jo data chahta hai, khud dispatch karta hai —
+  // status check isliye taaki dobara mount hone par duplicate fetch na ho.
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchRentals());
+    }
+  }, [status, dispatch]);
   const [searchQuery, setSearchQuery] = useState('');
   const [likedEquipment, setLikedEquipment] = useState(new Set());
   const [categoryFilter, setCategoryFilter] = useState('all');
@@ -84,12 +104,22 @@ const BrowseEquipmentPage = () => {
         </div>
 
         {/* Search Info */}
-        {searchQuery && (
+        {/* {searchQuery && (
           <div className="mb-6 flex items-center text-gray-600">
             <FaSearch className="mr-2" />
             <p>Search results for: <span className="font-semibold">"{searchQuery}"</span></p>
           </div>
-        )}
+        )} */}
+        {searchQuery && (
+  <div className="mb-6 flex items-center text-gray-600">
+    <FaSearch className="mr-2" />
+    {searchStatus === 'loading' ? (
+      <p>Searching...</p>
+    ) : (
+      <p>Search results for: <span className="font-semibold">"{searchQuery}"</span></p>
+    )}
+  </div>
+)}
 
         {/* Equipment Grid */}
         {filteredEquipment.length === 0 ? (
