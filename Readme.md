@@ -2,6 +2,8 @@
 
 A peer-to-peer agricultural equipment rental marketplace, built on the MERN stack — farmers can list equipment they own for rent, and browse/rent equipment listed by others, with AI-assisted listing creation and semantic search.
 
+**🔗 Live Demo:** [https://farmease-sbqo.onrender.com/](https://farmease-sbqo.onrender.com/)
+
 ---
 
 ## ✨ Features
