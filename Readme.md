@@ -10,10 +10,9 @@ A peer-to-peer agricultural equipment rental marketplace, built on the MERN stac
 
 ### 🏪 Core Marketplace
 - User authentication (signup, login, email verification, password reset) using JWT (httpOnly cookies)
-- Add, browse, and delete equipment rental listings
+- Add, browse equipment rental listings
 - Image upload via Cloudinary (in-memory upload, no local disk storage)
 - Category-based filtering (tractors, harvesters, plows, irrigation, planters)
-- Rent checkout flow
 - Responsive UI (desktop + mobile)
 
 ### 🤖 AI-Powered Features
